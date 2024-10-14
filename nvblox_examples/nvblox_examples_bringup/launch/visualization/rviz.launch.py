@@ -31,6 +31,8 @@ def add_rviz(args: lu.ArgumentContainer) -> list[Action]:
         camera = NvbloxCamera[args.camera]
         if camera in [NvbloxCamera.zed2, NvbloxCamera.zedx]:
             camera_str = 'zed'
+        elif camera is NvbloxCamera.orbbec:
+            camera_str = 'orbbec'
         else:
             camera_str = str(camera)
 
