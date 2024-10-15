@@ -69,6 +69,17 @@ def get_zed_remappings(mode: NvbloxMode) -> List[Tuple[str, str]]:
     return remappings
 
 
+def get_zed_alt_remappings(mode: NvbloxMode) -> List[Tuple[str, str]]:
+    assert mode is NvbloxMode.static, 'Nvblox only supports static mode for ZED cameras.'
+    remappings = []
+    remappings.append(('camera_0/depth/image', '/zed/depth/depth_registered'))
+    remappings.append(('camera_0/depth/camera_info', '/zed/depth/camera_info'))
+    remappings.append(('camera_0/color/image', '/zed/rgb/image_rect_color'))
+    remappings.append(('camera_0/color/camera_info', '/zed/rgb/camera_info'))
+    remappings.append(('pose', '/zed/pose'))
+    return remappings
+
+
 def get_orbbec_remappings(mode: NvbloxMode) -> List[Tuple[str, str]]:
     assert mode is NvbloxMode.static, 'Nvblox only supports static mode for ZED cameras.'
     remappings = []
@@ -121,6 +132,11 @@ def add_nvblox(args: lu.ArgumentContainer) -> List[Action]:
         assert not use_lidar, 'Can not run lidar for realsense example.'
     elif camera in [NvbloxCamera.zed2, NvbloxCamera.zedx]:
         remappings = get_zed_remappings(mode)
+        camera_config = zed_config
+        assert num_cameras == 1, 'Zed example can only run with 1 camera.'
+        assert not use_lidar, 'Can not run lidar for zed example.'
+    elif camera is NvbloxCamera.zed_alt:
+        remappings = get_zed_alt_remappings(mode)
         camera_config = zed_config
         assert num_cameras == 1, 'Zed example can only run with 1 camera.'
         assert not use_lidar, 'Can not run lidar for zed example.'

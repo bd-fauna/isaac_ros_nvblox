@@ -63,6 +63,7 @@ class NvbloxCamera(NvbloxEnum):
     zed2 = 3
     zedx = 4
     orbbec = 5
+    zed_alt = 6
 
 
 class NvbloxPeopleSegmentation(NvbloxEnum):
