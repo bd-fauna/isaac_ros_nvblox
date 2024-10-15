@@ -55,15 +55,5 @@ def generate_launch_description() -> LaunchDescription:
             bag_path=args.rosbag,
             additional_bag_play_args=args.rosbag_args,
             condition=IfCondition(lu.is_valid(args.rosbag))))
-
-    # Visualization
-    actions.append(
-        lu.include(
-            'nvblox_examples_bringup',
-            'launch/visualization/visualization.launch.py',
-            launch_arguments={
-                'mode': NvbloxMode.static,
-                'camera': NvbloxCamera.zed_alt
-            }))
-
+            
     return LaunchDescription(actions)
